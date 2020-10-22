@@ -91,3 +91,12 @@ section {
   margin: 10%; /* Should be detected by how many nodes there are, something like (1 / N)% */
   width: 2vw;
 }
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+line {
+  stroke: red;
+}
