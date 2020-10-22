@@ -142,15 +142,14 @@
    * @param {Object} this the button that was clicked.
    */
   function cycleColor() {
-    for (let i = 0; i < PALETTE_NAMES.length; i++) {
-      if (this.classList.contains(PALETTE_NAMES[i])) {
-        this.classList.remove(PALETTE_NAMES[i]);
-        let next = (i + 1) % PALETTE.length;
-        this.classList.add(PALETTE_NAMES[next]);
-        colors[parseInt(this.textContent) - 1] = PALETTE[next];
-        break;
-      }
+    let i = 0;
+    while (!this.classList.contains(PALETTE_NAMES[i])) {
+      i++;
     }
+    this.classList.remove(PALETTE_NAMES[i]);
+    let next = (i + 1) % PALETTE.length;
+    this.classList.add(PALETTE_NAMES[next]);
+    colors[parseInt(this.textContent) - 1] = PALETTE[next];
   }
 
   /**
@@ -160,7 +159,7 @@
    */
   function indexOf(color) {
     for (let i = 0; i < PALETTE_NAMES.length; i++) {
-      if (color == PALETTE_NAMES[i]) {
+      if (color === PALETTE_NAMES[i]) {
         return i;
       }
     }
