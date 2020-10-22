@@ -43,7 +43,7 @@ header p {
   justify-content: space-around;
 }
 
-form {
+div {
   width: 35vw;
   text-align: center;
 }
@@ -80,6 +80,10 @@ section > button {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.hidden {
+  display: none;
 }
 
 #palette {

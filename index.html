@@ -19,20 +19,20 @@
       <p>Not the boring algebra kind, the cool graph theory kind.</p>
     </header>
     <section id="fields">
-      <form>
+      <div>
         <p>
           A vertex is one location from which edges can originate. I recommend up to 20 vertices
         </p>
         <input id="vertices" type="text" placeholder="Enter an integer of vertices">
-      </form>
-      <form>
+      </div>
+      <div>
         <p>Edge density is a number 0 &lt; p &lt; 1 representing how many edges are in a graph</p>
         <input id="edge density" type="text" placeholder="Enter an edge density">
-      </form>
+      </div>
     </section>
     <section>
-      <p>Color each node and its edges differently:</p>
-      <form id="palette"></form>
+      <p class="hidden">Color each node and its edges differently:</p>
+      <div id="palette"></div>
       <!-- <p>Once you've chosen colors, generate a graph!</p> -->
       <button id="go">Generate!</button>
       <canvas id="graph">

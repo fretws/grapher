@@ -52,6 +52,10 @@
   }
 
   function palettePopup() {
+    let hidden = qs(".hidden");
+    if (hidden != null) {
+      hidden.classList.remove("hidden");
+    }
     let palette_elem = id("palette");
     let n = parseInt(id("vertices").value);
     let old_btns = palette_elem.childNodes;
