@@ -9,6 +9,11 @@
 
 (function() {
   window.addEventListener("load", init);
+  const palette = [
+    [205, 0, 0], // red
+    [0, 205, 12], // green
+    [23, 0, 156] // blue
+  ]
 
   function init() {
     let go = id("go");
