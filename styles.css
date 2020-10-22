@@ -62,10 +62,9 @@ section {
   align-items: center;
 }
 
-#go {
+section > button {
   text-align: center;
   margin: auto;
-  margin-top: 20px;
 }
 
 #graph {
@@ -81,6 +80,10 @@ section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+#palette {
+  margin-bottom: 20px;
 }
 
 #palette > button {

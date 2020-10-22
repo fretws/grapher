@@ -19,9 +19,8 @@
   let nodes;
 
   function init() {
-    let go = id("go");
-    go.addEventListener("click", generateGraph);
-
+    id("go").addEventListener("click", generateGraph);
+    id("vertices").addEventListener("change", palettePopup);
   }
 
   function generateGraph() {
@@ -39,42 +38,45 @@
       let cx = graph.width / 2;
       let cy = graph.height / 2;
       let dtheta = Math.PI * 2 / n;
-      // Draw nodes in circle
-
-      // Clear graph
-      ctx.clearRect(0, 0, graph.width, graph.height);
-
+      ctx.clearRect(0, 0, graph.width, graph.height); // Clear graph
       // Find node points
       let nodes = new Array(n);
-      // colors = new Array(n);
-      // let color_selectors = qsa("#palette > button");
-      let palette_elem = id("palette");
-      for (i = 0; i < n; i++) {
+      for (let i = 0; i < n; i++) {
         let x = cx + radius * Math.sin(i * dtheta);
         let y = cy + radius * Math.cos(i * dtheta);
         nodes[i] = [x, y];
-        let btn = gen("button");
-        btn.addEventListener("click", cycleColor);
-        btn.addEventListener("click", drawGraph);
-        btn.classList.add("blue");
-        btn.textContent = i + 1;
-        btn.type = "button";
-        palette_elem.appendChild(btn);
       }
       drawEdges(ctx, nodes, p);
       drawNodes(ctx, nodes);
     }
   }
 
-  function drawGraph() {
-
+  function palettePopup() {
+    let palette_elem = id("palette");
+    let n = parseInt(id("vertices").value);
+    let old_btns = palette_elem.childNodes;
+    while (old_btns.length > 0) {
+      palette_elem.removeChild(old_btns[0]);
+    }
+    colors = new Array(n);
+    for (let i = 0; i < n; i++) {
+      let btn = gen("button");
+      btn.addEventListener("click", cycleColor);
+      btn.classList.add("blue");
+      colors[i] = palette[indexOf("blue")];
+      btn.textContent = i + 1;
+      btn.type = "button";
+      palette_elem.appendChild(btn);
+    }
   }
 
   function cycleColor() {
-    for (i = 0; i < palette_names.length; i++) {
+    for (let i = 0; i < palette_names.length; i++) {
       if (this.classList.contains(palette_names[i])) {
         this.classList.remove(palette_names[i]);
-        this.classList.add(palette_names[(i + 1) % palette_names.length]);
+        let next = (i + 1) % palette.length;
+        this.classList.add(palette_names[next]);
+        colors[parseInt(this.textContent) - 1] = palette[next];
         break;
       }
     }
@@ -116,6 +118,14 @@
       }
       ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
       ctx.fill();
+    }
+  }
+
+  function indexOf(color) {
+    for (let i = 0; i < palette_names.length; i++) {
+      if (color == palette_names[i]) {
+        return i;
+      }
     }
   }
 
