@@ -13,11 +13,15 @@
     [205, 0, 0], // red
     [0, 205, 12], // green
     [23, 0, 156] // blue
-  ]
+  ];
+  const palette_names = ["red", "green", "blue"];
+  let colors = 0;
+  let nodes;
 
   function init() {
     let go = id("go");
     go.addEventListener("click", generateGraph);
+
   }
 
   function generateGraph() {
@@ -42,17 +46,41 @@
 
       // Find node points
       let nodes = new Array(n);
+      // colors = new Array(n);
+      // let color_selectors = qsa("#palette > button");
+      let palette_elem = id("palette");
       for (i = 0; i < n; i++) {
         let x = cx + radius * Math.sin(i * dtheta);
         let y = cy + radius * Math.cos(i * dtheta);
         nodes[i] = [x, y];
+        let btn = gen("button");
+        btn.addEventListener("click", cycleColor);
+        btn.addEventListener("click", drawGraph);
+        btn.classList.add("blue");
+        btn.textContent = i + 1;
+        btn.type = "button";
+        palette_elem.appendChild(btn);
       }
-      drawEdges(ctx, nodes, p, 0);
-      drawNodes(ctx, nodes, 0);
+      drawEdges(ctx, nodes, p);
+      drawNodes(ctx, nodes);
     }
   }
 
-  function drawEdges(ctx, nodes, p, colors) {
+  function drawGraph() {
+
+  }
+
+  function cycleColor() {
+    for (i = 0; i < palette_names.length; i++) {
+      if (this.classList.contains(palette_names[i])) {
+        this.classList.remove(palette_names[i]);
+        this.classList.add(palette_names[(i + 1) % palette_names.length]);
+        break;
+      }
+    }
+  }
+
+  function drawEdges(ctx, nodes, p) {
     let n = nodes.length;
     for (u = 0; u < n; u++) {
       for (v = u; v < n; v++) {
@@ -74,7 +102,7 @@
     }
   }
 
-  function drawNodes(ctx, nodes, colors) {
+  function drawNodes(ctx, nodes) {
     let n = nodes.length;
     for (coord = 0; coord < n; coord++) {
       ctx.beginPath();
