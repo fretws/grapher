@@ -1,13 +1,15 @@
-"use-strict";
-// Shane Fretwell
-// October 20, 2020
-// Section AE, Dylan McKone and Josie Lee
-//
-// This script handles the drawing of graph generation in reaction to user input and window size.
-// The goal, to restate, is to have a graph generator that is faster and more useful to me than
-// the generator currently employed by Wolfram Alpha.
+/*
+ * Shane Fretwell
+ * October 20, 2020
+ * Section AE, Dylan McKone and Josie Lee
+ *
+ * This script handles the drawing of graph generation in reaction to user input and window size.
+ * The goal, to restate, is to have a graph generator that is faster and more useful to me than
+ * the generator currently employed by Wolfram Alpha.
+ */
 
 (function () {
+  "use-strict";
   window.addEventListener("load", init);
   const PALETTE = [
     [205, 0, 0], // red
@@ -17,6 +19,9 @@
   const PALETTE_NAMES = ["red", "green", "blue"];
   let colors;
 
+  /**
+   * Initializes event listeners for the page.
+   */
   function init() {
     id("go").addEventListener("click", generateGraph);
     id("vertices").addEventListener("change", palettePopup);
@@ -28,21 +33,26 @@
    * instead of the default.
    */
   function generateGraph() {
-    /* I learned how to use a canvas from
-    https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage */
+    /*
+     * I learned how to use a canvas from
+     * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
+     */
     let n = parseInt(id("vertices").value);
     let p = parseFloat(id("edge-density").value);
 
     let graph = id("graph");
     if (graph.getContext) {
       let ctx = graph.getContext('2d');
+
       // Nodes will be arranged in a circle
       let radius = Math.min(graph.width, graph.height) / 2 - 10;
       let cx = graph.width / 2;
       let cy = graph.height / 2;
       let dtheta = Math.PI * 2 / n;
+
       // Clear canvas
       ctx.clearRect(0, 0, graph.width, graph.height);
+
       // Find node points
       let nodes = new Array(n);
       for (let i = 0; i < n; i++) {
@@ -65,8 +75,8 @@
    */
   function drawEdges(ctx, nodes, p) {
     let n = nodes.length;
-    for (u = 0; u < n; u++) {
-      for (v = u; v < n; v++) {
+    for (let u = 0; u < n; u++) {
+      for (let v = u; v < n; v++) {
         if (Math.random() < p) {
           ctx.beginPath();
           ctx.strokeStyle = 'rgb(' +
@@ -89,7 +99,7 @@
    */
   function drawNodes(ctx, nodes) {
     let n = nodes.length;
-    for (coord = 0; coord < n; coord++) {
+    for (let coord = 0; coord < n; coord++) {
       ctx.beginPath();
       ctx.fillStyle = 'rgb(' +
         colors[coord][0] + ', ' +
@@ -129,7 +139,7 @@
 
   /**
    * Cycles the color of this button according to the global palette.
-   * @param this the button that was clicked.
+   * @param {Object} this the button that was clicked.
    */
   function cycleColor() {
     for (let i = 0; i < PALETTE_NAMES.length; i++) {
