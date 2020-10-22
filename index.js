@@ -31,13 +31,13 @@
     let graph = id("graph");
     if (graph.getContext) {
       let ctx = graph.getContext('2d');
-      /* I learned how to get the element height from
-      https://www.javascripttutorial.net/javascript-dom/javascript-width-height/ */
+      // Nodes will be arranged in a circle
       let radius = Math.min(graph.width, graph.height) / 2 - 10;
       let cx = graph.width / 2;
       let cy = graph.height / 2;
       let dtheta = Math.PI * 2 / n;
-      ctx.clearRect(0, 0, graph.width, graph.height); // Clear graph
+      // Clear canvas
+      ctx.clearRect(0, 0, graph.width, graph.height);
       // Find node points
       let nodes = new Array(n);
       for (let i = 0; i < n; i++) {
@@ -47,6 +47,37 @@
       }
       drawEdges(ctx, nodes, p);
       drawNodes(ctx, nodes);
+    }
+  }
+
+  function drawEdges(ctx, nodes, p) {
+    let n = nodes.length;
+    for (u = 0; u < n; u++) {
+      for (v = u; v < n; v++) {
+        if (Math.random() < p) {
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgb(' +
+            ((colors[u][0] + colors[v][0]) / 2) + ', ' +
+            ((colors[u][1] + colors[v][1]) / 2) + ', ' +
+            ((colors[u][2] + colors[v][2]) / 2) + ')';
+          ctx.moveTo(nodes[u][0], nodes[u][1]);
+          ctx.lineTo(nodes[v][0], nodes[v][1]);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function drawNodes(ctx, nodes) {
+    let n = nodes.length;
+    for (coord = 0; coord < n; coord++) {
+      ctx.beginPath();
+      ctx.fillStyle = 'rgb(' +
+        colors[coord][0] + ', ' +
+        colors[coord][1] + ', ' +
+        colors[coord][2] + ')';
+      ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
@@ -82,37 +113,6 @@
         colors[parseInt(this.textContent) - 1] = PALETTE[next];
         break;
       }
-    }
-  }
-
-  function drawEdges(ctx, nodes, p) {
-    let n = nodes.length;
-    for (u = 0; u < n; u++) {
-      for (v = u; v < n; v++) {
-        if (Math.random() < p) {
-          ctx.beginPath();
-          ctx.strokeStyle = 'rgb(' +
-            ((colors[u][0] + colors[v][0]) / 2) + ', ' +
-            ((colors[u][1] + colors[v][1]) / 2) + ', ' +
-            ((colors[u][2] + colors[v][2]) / 2) + ')';
-          ctx.moveTo(nodes[u][0], nodes[u][1]);
-          ctx.lineTo(nodes[v][0], nodes[v][1]);
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
-  function drawNodes(ctx, nodes) {
-    let n = nodes.length;
-    for (coord = 0; coord < n; coord++) {
-      ctx.beginPath();
-      ctx.fillStyle = 'rgb(' +
-        colors[coord][0] + ', ' +
-        colors[coord][1] + ', ' +
-        colors[coord][2] + ')';
-      ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
-      ctx.fill();
     }
   }
 
