@@ -7,7 +7,7 @@
 // The goal, to restate, is to have a graph generator that is faster and more useful to me than
 // the generator currently employed by Wolfram Alpha.
 
-(function() {
+(function () {
   window.addEventListener("load", init);
   const PALETTE = [
     [205, 0, 0], // red
@@ -22,6 +22,11 @@
     id("vertices").addEventListener("change", palettePopup);
   }
 
+  /**
+   * Takes the values in the user inputs (the number of nodes and the edge density) and draws a
+   * fitting graph on the canvas. If custom colors have been selected, then these colors are used
+   * instead of the default.
+   */
   function generateGraph() {
     /* I learned how to use a canvas from
     https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage */
@@ -50,6 +55,14 @@
     }
   }
 
+  /**
+   * Takes in the locations of all of the nodes and generates random edges such that the resulting
+   * graph has roughly the edge density provided. Edges are colored as the avarage of the source and
+   * destination node colors.
+   * @param {Object} ctx Canvas drawing context.
+   * @param {Array} nodes 2d array of node locations as (x, y) pairs
+   * @param {float} p edge density of the current graph.
+   */
   function drawEdges(ctx, nodes, p) {
     let n = nodes.length;
     for (u = 0; u < n; u++) {
@@ -68,6 +81,12 @@
     }
   }
 
+  /**
+   * Takes in the locations of the nodes of the current graph and draws them on the canvas using
+   * the colors designated by the global variable 'colors'.
+   * @param {Object} ctx the canvas drawing context.
+   * @param {Array} nodes 2d array of (x, y) coordinates of all nodes in the graph.
+   */
   function drawNodes(ctx, nodes) {
     let n = nodes.length;
     for (coord = 0; coord < n; coord++) {
@@ -81,6 +100,10 @@
     }
   }
 
+  /**
+   * Reveals the palette for color customization and populates the palette with one button for each
+   * node in the graph to be generated.
+   */
   function palettePopup() {
     let hidden = qs(".hidden");
     if (hidden != null) {
@@ -104,6 +127,10 @@
     }
   }
 
+  /**
+   * Cycles the color of this button according to the global palette.
+   * @param this the button that was clicked.
+   */
   function cycleColor() {
     for (let i = 0; i < PALETTE_NAMES.length; i++) {
       if (this.classList.contains(PALETTE_NAMES[i])) {
@@ -116,6 +143,11 @@
     }
   }
 
+  /**
+   * Returns the index of the given color in the global palette.
+   * @param {String} color name of color in the global palette.
+   * @returns {int} the index of the given color in the global palette.
+   */
   function indexOf(color) {
     for (let i = 0; i < PALETTE_NAMES.length; i++) {
       if (color == PALETTE_NAMES[i]) {
@@ -124,18 +156,29 @@
     }
   }
 
+  /**
+   * Returns the element that has the ID attribute with the specified value.
+   * @param {String} idName HTML element ID.
+   * @returns {DOM Object} DOM object associated with ID.
+   */
   function id(idName) {
     return document.getElementById(idName);
   }
 
+  /**
+   * Returns the first element that fits the given selector.
+   * @param {String} selector valid HTML/CSS selector.
+   * @returns {DOM Object} DOM object associated with ID.
+   */
   function qs(selector) {
     return document.querySelector(selector);
   }
 
-  function qsa(selector) {
-    return document.querySelectorAll(selector);
-  }
-
+  /**
+   * Returns a new DOM Object of the tag provided.
+   * @param {String} tagName HTML tag name.
+   * @returns {DOM Object} DOM object associated with ID.
+   */
   function gen(tagName) {
     return document.createElement(tagName);
   }
