@@ -40,38 +40,21 @@
       let ctx = graph.getContext('2d');
       /* I learned how to get the element height from
       https://www.javascripttutorial.net/javascript-dom/javascript-width-height/ */
-      let x_increment = graph.width / n * 3;
-      let y_increment = graph.height / n * 6;
-      // Draw nodes starting in each corner and progressing in clockwise spiral
+      let radius = Math.min(graph.width, graph.height) / 2 - 10;
+      let cx = graph.width / 2;
+      let cy = graph.height / 2;
+      let dtheta = Math.PI * 2 / n;
+      // Draw nodes in circle
 
       // Clear graph
       ctx.clearRect(0, 0, graph.width, graph.height);
 
       // Find node points
-      let curr_n = 0;
       let nodes = new Array(n);
-      let corner = 0;
-      let progress = new Array(4);
-      progress[0] = 10;
-      progress[1] = 10;
-      progress[2] = graph.width - 10;
-      progress[3] = graph.height - 10;
-      while (curr_n < n) {
-        if (corner == 0) {
-          nodes[curr_n] = [progress[corner], 10];
-          progress[corner] += x_increment;
-        } else if (corner == 1) {
-          nodes[curr_n] = [10, progress[corner]];
-          progress[corner] += y_increment;
-        } else if (corner == 2) {
-          nodes[curr_n] = [progress[corner], graph.height - 10];
-          progress[corner] -= x_increment;
-        } else if (corner == 3) {
-          nodes[curr_n] = [graph.width - 10, progress[corner]];
-          progress[corner] -= y_increment;
-        }
-        curr_n++;
-        corner = (corner + 1) % 4;
+      for (i = 0; i < n; i++) {
+        let x = cx + radius * Math.sin(i * dtheta);
+        let y = cy + radius * Math.cos(i * dtheta);
+        nodes[i] = [x, y];
       }
       // Draw edges
 
