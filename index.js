@@ -9,14 +9,13 @@
 
 (function() {
   window.addEventListener("load", init);
-  const palette = [
+  const PALETTE = [
     [205, 0, 0], // red
     [0, 205, 12], // green
     [23, 0, 156] // blue
   ];
-  const palette_names = ["red", "green", "blue"];
-  let colors = 0;
-  let nodes;
+  const PALETTE_NAMES = ["red", "green", "blue"];
+  let colors;
 
   function init() {
     id("go").addEventListener("click", generateGraph);
@@ -67,7 +66,7 @@
       let btn = gen("button");
       btn.addEventListener("click", cycleColor);
       btn.classList.add("blue");
-      colors[i] = palette[indexOf("blue")];
+      colors[i] = PALETTE[indexOf("blue")];
       btn.textContent = i + 1;
       btn.type = "button";
       palette_elem.appendChild(btn);
@@ -75,12 +74,12 @@
   }
 
   function cycleColor() {
-    for (let i = 0; i < palette_names.length; i++) {
-      if (this.classList.contains(palette_names[i])) {
-        this.classList.remove(palette_names[i]);
-        let next = (i + 1) % palette.length;
-        this.classList.add(palette_names[next]);
-        colors[parseInt(this.textContent) - 1] = palette[next];
+    for (let i = 0; i < PALETTE_NAMES.length; i++) {
+      if (this.classList.contains(PALETTE_NAMES[i])) {
+        this.classList.remove(PALETTE_NAMES[i]);
+        let next = (i + 1) % PALETTE.length;
+        this.classList.add(PALETTE_NAMES[next]);
+        colors[parseInt(this.textContent) - 1] = PALETTE[next];
         break;
       }
     }
@@ -92,14 +91,10 @@
       for (v = u; v < n; v++) {
         if (Math.random() < p) {
           ctx.beginPath();
-          if (colors == 0) {
-            ctx.strokeStyle = 'rgb(0, 0, 0)';
-          } else {
-            ctx.strokeStyle = 'rgb(' +
-              ((colors[u][0] + colors[v][0]) / 2) + ', ' +
-              ((colors[u][1] + colors[v][1]) / 2) + ', ' +
-              ((colors[u][2] + colors[v][2]) / 2) + ')';
-          }
+          ctx.strokeStyle = 'rgb(' +
+            ((colors[u][0] + colors[v][0]) / 2) + ', ' +
+            ((colors[u][1] + colors[v][1]) / 2) + ', ' +
+            ((colors[u][2] + colors[v][2]) / 2) + ')';
           ctx.moveTo(nodes[u][0], nodes[u][1]);
           ctx.lineTo(nodes[v][0], nodes[v][1]);
           ctx.stroke();
@@ -112,22 +107,18 @@
     let n = nodes.length;
     for (coord = 0; coord < n; coord++) {
       ctx.beginPath();
-      if (colors == 0) {
-        ctx.fillStyle = 'rgb(23, 0, 156)';
-      } else {
-        ctx.fillStyle = 'rgb(' +
-          colors[coord][0] + ', ' +
-          colors[coord][1] + ', ' +
-          colors[coord][2] + ')';
-      }
+      ctx.fillStyle = 'rgb(' +
+        colors[coord][0] + ', ' +
+        colors[coord][1] + ', ' +
+        colors[coord][2] + ')';
       ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
   function indexOf(color) {
-    for (let i = 0; i < palette_names.length; i++) {
-      if (color == palette_names[i]) {
+    for (let i = 0; i < PALETTE_NAMES.length; i++) {
+      if (color == PALETTE_NAMES[i]) {
         return i;
       }
     }
