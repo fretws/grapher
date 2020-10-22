@@ -6,27 +6,6 @@
   function init() {
     let go = id("go");
     go.addEventListener("click", generateGraph);
-    // go.addEventListener("click", genLine);
-  }
-
-  function genLine() {
-    let graph = id("graph");
-    if (graph.getContext) {
-      let ctx = graph.getContext('2d');
-
-      ctx.fillStyle = 'rgb(200, 0, 0)';
-      ctx.fillRect(150, 10, 250, 50);
-
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(150, 10);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(150, 0);
-      ctx.lineTo(0, 10);
-      ctx.stroke();
-    }
   }
 
   function generateGraph() {
@@ -57,51 +36,26 @@
         nodes[i] = [x, y];
       }
       // Draw edges
-
+      for (u = 0; u < n; u++) {
+        for (v = u; v < n; v++) {
+          if (Math.random() < p) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgb(0, 0, 0)';
+            ctx.moveTo(nodes[u][0], nodes[u][1]);
+            ctx.lineTo(nodes[v][0], nodes[v][1]);
+            ctx.stroke();
+          }
+        }
+      }
       // Draw nodes
       for (coord = 0; coord < n; coord++) {
         ctx.beginPath();
-        ctx.strokeStyle = 'rgb(200, 0, 0)';
+        ctx.fillStyle = 'rgb(23, 0, 156)';
         ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
-        ctx.stroke();
+        ctx.fill();
       }
-      // I learned foreach loops from https://careerkarma.com/blog/javascript-foreach-loop/
-      // nodes.foreach(coord => {
-      //   ctx.fillStyle = 'rgb(200, 0, 0)';
-      //   ctx.arc(coord[0], coord[1], 5, 0, Math.PI * 2);
-      // });
 
-      // for (u = 0; u < n; u++) {
-      //   for (v = u; v < n; v++) {
-      //     if (Math.random() < p) {
-      //       drawLine(svg, nodes[u], nodes[v]);
-      //     }
-      //   }
-      // }
     }
-  }
-
-  function addNode(corner, ) {
-
-  }
-
-  function drawLine(svg, u, v) {
-    let line = gen("line");
-    let x1 = "0";
-    let y1 = "0";
-    let x2 = "100";
-    let y2 = "100";
-    line.setAttribute("x1", x1);
-    line.setAttribute("y1", y1);
-    line.setAttribute("x2", x2);
-    line.setAttribute("y2", y2);
-    svg.appendChild(line);
-    // let x1 = u.offsetLeft;
-    // let y1 = u.offsetTop;
-    // let x2 = v.offsetLeft;
-    // let y2 = v.offsetTop;
-    // svg.setAttribute("width", Math.abs(x1 - x2));
-    // svg.setAttribute("height", Math.abs(y1 - y2));
   }
 
   function id(idName) {
