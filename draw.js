@@ -5,8 +5,8 @@
 
   function init() {
     let go = id("go");
-    // go.addEventListener("click", generateGraph);
-    go.addEventListener("click", genLine);
+    go.addEventListener("click", generateGraph);
+    // go.addEventListener("click", genLine);
   }
 
   function genLine() {
@@ -21,34 +21,84 @@
       ctx.moveTo(0, 0);
       ctx.lineTo(150, 10);
       ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(150, 0);
+      ctx.lineTo(0, 10);
+      ctx.stroke();
     }
   }
 
   function generateGraph() {
+    /* I learned how to use a canvas from
+    https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage */
     let n = parseInt(id("vertices").value);
     let p = parseFloat(id("edge density").value);
 
     let graph = id("graph");
-    let nodes = graph.childNodes;
-    while (nodes.length > 0) { // For now, 'nodes' is a misnomer since it likely contain edges too
-      graph.removeChild(nodes[0]);
-    }
-    for (i = 0; i < n; i++) {
-      let node = gen("div");
-      node.classList.add("node");
-      // This is breaking the separation of concerns, but in this case it is necessary, since CSS
-      // cannot know how many nodes are in the graph at any given time (as far as I know).
-      node.style.margin = 0; // 25.0 / Math.sqrt(n) + "%";
-      graph.appendChild(node);
-    }
+    if (graph.getContext) {
+      let ctx = graph.getContext('2d');
+      /* I learned how to get the element height from
+      https://www.javascripttutorial.net/javascript-dom/javascript-width-height/ */
+      let x_increment = graph.width / n * 3;
+      let y_increment = graph.height / n * 6;
+      // Draw nodes starting in each corner and progressing in clockwise spiral
 
-    for (u = 0; u < n; u++) {
-      for (v = u; v < n; v++) {
-        if (Math.random() < p) {
-          drawLine(svg, nodes[u], nodes[v]);
+      // Clear graph
+      ctx.clearRect(0, 0, graph.width, graph.height);
+
+      // Find node points
+      let curr_n = 0;
+      let nodes = new Array(n);
+      let corner = 0;
+      let progress = new Array(4);
+      progress[0] = 10;
+      progress[1] = 10;
+      progress[2] = graph.width - 10;
+      progress[3] = graph.height - 10;
+      while (curr_n < n) {
+        if (corner == 0) {
+          nodes[curr_n] = [progress[corner], 10];
+          progress[corner] += x_increment;
+        } else if (corner == 1) {
+          nodes[curr_n] = [10, progress[corner]];
+          progress[corner] += y_increment;
+        } else if (corner == 2) {
+          nodes[curr_n] = [progress[corner], graph.height - 10];
+          progress[corner] -= x_increment;
+        } else if (corner == 3) {
+          nodes[curr_n] = [graph.width - 10, progress[corner]];
+          progress[corner] -= y_increment;
         }
+        curr_n++;
+        corner = (corner + 1) % 4;
       }
+      // Draw edges
+
+      // Draw nodes
+      for (coord = 0; coord < n; coord++) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgb(200, 0, 0)';
+        ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      // I learned foreach loops from https://careerkarma.com/blog/javascript-foreach-loop/
+      // nodes.foreach(coord => {
+      //   ctx.fillStyle = 'rgb(200, 0, 0)';
+      //   ctx.arc(coord[0], coord[1], 5, 0, Math.PI * 2);
+      // });
+
+      // for (u = 0; u < n; u++) {
+      //   for (v = u; v < n; v++) {
+      //     if (Math.random() < p) {
+      //       drawLine(svg, nodes[u], nodes[v]);
+      //     }
+      //   }
+      // }
     }
+  }
+
+  function addNode(corner, ) {
 
   }
 
