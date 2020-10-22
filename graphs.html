@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+  This page outlines the structure of the graph generator's input fields, buttons, and designated
+  rendering area. The hope is that this graph generator will be better for my uses in other CS
+  classes than the graph generator that Wolfram Alpha currently employs, though I will borrow some
+  general ideas from their generator, such as mouse-over behavior and simplistic look. Here is their
+  generator at work: https://www.wolframalpha.com/input/?i=random+graph+on+7+vertices+7+edges
+ -->
+<html lang = "en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="draw.js"></script>
+    <title>Graph Generator</title>
+  </head>
+  <body>
+    <header>
+      <h1>Graph Generator</h1>
+      <p>Not the boring algebra kind, the cool graph theory kind.</p>
+    </header>
+    <section id="fields">
+      <form>
+        <p>
+          A vertex is one location from which edges can originate. I recommend up to 20 vertices
+        </p>
+        <input id="vertices" type="text" placeholder="Enter an integer of vertices">
+      </form>
+      <form>
+        <p>Edge density is a number 0 &lt; p &lt; 1 representing how many edges are in a graph</p>
+        <input id="edge density" type="text" placeholder="Enter an edge density">
+      </form>
+    </section>
+    <section>
+      <button id="go">Generate!</button>
+      <figure id="graph">
+        <svg width="100" height="100">
+          <line x1="0" y1="0" x2="100" y2="100" stroke="red"></line>
+        </svg>
+        <!-- <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div> -->
+      </figure>
+    </section>
+  </body>
+</html>
