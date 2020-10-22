@@ -10,7 +10,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
-    <script src="draw.js"></script>
+    <script src="index.js"></script>
     <title>Graph Generator</title>
   </head>
   <body>
@@ -19,32 +19,25 @@
       <p>Not the boring algebra kind, the cool graph theory kind.</p>
     </header>
     <section id="fields">
-      <form>
+      <div>
         <p>
           A vertex is one location from which edges can originate. I recommend up to 20 vertices
         </p>
         <input id="vertices" type="text" placeholder="Enter an integer of vertices">
-      </form>
-      <form>
+      </div>
+      <div>
         <p>Edge density is a number 0 &lt; p &lt; 1 representing how many edges are in a graph</p>
         <input id="edge density" type="text" placeholder="Enter an edge density">
-      </form>
+      </div>
     </section>
     <section>
+      <p class="hidden">Color each node and its edges differently:</p>
+      <div id="palette"></div>
+      <!-- <p>Once you've chosen colors, generate a graph!</p> -->
       <button id="go">Generate!</button>
-      <figure id="graph">
-        <svg>
-          <!--  stroke="red" -->
-          <line x1="0" y1="0" x2="100" y2="100"></line>
-        </svg>
-        <!-- <div class="node"></div>
-        <div class="node"></div>
-        <div class="node"></div>
-        <div class="node"></div>
-        <div class="node"></div>
-        <div class="node"></div>
-        <div class="node"></div> -->
-      </figure>
+      <canvas id="graph">
+        <p>Graph canvas load failed!</p>
+      </canvas>
     </section>
   </body>
 </html>
