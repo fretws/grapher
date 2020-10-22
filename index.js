@@ -42,38 +42,25 @@
         let y = cy + radius * Math.cos(i * dtheta);
         nodes[i] = [x, y];
       }
-      // drawEdges(ctx, nodes, 0);
-      for (u = 0; u < n; u++) {
-        for (v = u; v < n; v++) {
-          if (Math.random() < p) {
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgb(0, 0, 0)';
-            ctx.moveTo(nodes[u][0], nodes[u][1]);
-            ctx.lineTo(nodes[v][0], nodes[v][1]);
-            ctx.stroke();
-          }
-        }
-      }
-      // Draw nodes
-      for (coord = 0; coord < n; coord++) {
-        ctx.beginPath();
-        ctx.fillStyle = 'rgb(23, 0, 156)';
-        ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
-        ctx.fill();
-      }
+      drawEdges(ctx, nodes, p, 0);
+      drawNodes(ctx, nodes, 0);
     }
   }
 
-  function drawEdges(ctx, nodes, colors) {
-    // if (colors == 0) {
-    //   ctx.strokeStyle = 'rgb(0, 0, 0)';
-    // }
+  function drawEdges(ctx, nodes, p, colors) {
     let n = nodes.length;
     for (u = 0; u < n; u++) {
       for (v = u; v < n; v++) {
         if (Math.random() < p) {
           ctx.beginPath();
-          ctx.strokeStyle = 'rgb(0, 0, 0)';
+          if (colors == 0) {
+            ctx.strokeStyle = 'rgb(0, 0, 0)';
+          } else {
+            ctx.strokeStyle = 'rgb(' +
+              ((colors[u][0] + colors[v][0]) / 2) + ', ' +
+              ((colors[u][1] + colors[v][1]) / 2) + ', ' +
+              ((colors[u][2] + colors[v][2]) / 2) + ')';
+          }
           ctx.moveTo(nodes[u][0], nodes[u][1]);
           ctx.lineTo(nodes[v][0], nodes[v][1]);
           ctx.stroke();
@@ -82,9 +69,22 @@
     }
   }
 
-  // function drawNodes(ctx) {
-
-  // }
+  function drawNodes(ctx, nodes, colors) {
+    let n = nodes.length;
+    for (coord = 0; coord < n; coord++) {
+      ctx.beginPath();
+      if (colors == 0) {
+        ctx.fillStyle = 'rgb(23, 0, 156)';
+      } else {
+        ctx.fillStyle = 'rgb(' +
+          colors[coord][0] + ', ' +
+          colors[coord][1] + ', ' +
+          colors[coord][2] + ')';
+      }
+      ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
   function id(idName) {
     return document.getElementById(idName);
