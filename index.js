@@ -26,7 +26,7 @@
     /* I learned how to use a canvas from
     https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage */
     let n = parseInt(id("vertices").value);
-    let p = parseFloat(id("edge density").value);
+    let p = parseFloat(id("edge-density").value);
 
     let graph = id("graph");
     if (graph.getContext) {
