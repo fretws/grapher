@@ -10,18 +10,18 @@
   }
 
   function genLine() {
-    let svg = qs("svg");
-    let line = gen("line");
-    let x1 = "0";
-    let y1 = "0";
-    let x2 = "50";
-    let y2 = "100";
-    line.setAttribute("x1", x1);
-    line.setAttribute("y1", y1);
-    line.setAttribute("x2", x2);
-    line.setAttribute("y2", y2);
-    // line.style.transformOrigin = "0px 0px";
-    svg.appendChild(line);
+    let graph = id("graph");
+    if (graph.getContext) {
+      let ctx = graph.getContext('2d');
+
+      ctx.fillStyle = 'rgb(200, 0, 0)';
+      ctx.fillRect(150, 10, 250, 50);
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(150, 10);
+      ctx.stroke();
+    }
   }
 
   function generateGraph() {
@@ -33,8 +33,6 @@
     while (nodes.length > 0) { // For now, 'nodes' is a misnomer since it likely contain edges too
       graph.removeChild(nodes[0]);
     }
-    let svg = gen("svg");
-    graph.appendChild(svg);
     for (i = 0; i < n; i++) {
       let node = gen("div");
       node.classList.add("node");
