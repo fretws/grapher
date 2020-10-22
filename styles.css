@@ -43,7 +43,7 @@ header p {
   justify-content: space-around;
 }
 
-form {
+#fields > form {
   width: 35vw;
   text-align: center;
 }
@@ -82,3 +82,4 @@ section {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+

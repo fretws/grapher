@@ -1,4 +1,11 @@
 "use-strict";
+// Shane Fretwell
+// October 20, 2020
+// Section AE, Dylan McKone and Josie Lee
+//
+// This script handles the drawing of graph generation in reaction to user input and window size.
+// The goal, to restate, is to have a graph generator that is faster and more useful to me than
+// the generator currently employed by Wolfram Alpha.
 
 (function() {
   window.addEventListener("load", init);
@@ -35,7 +42,7 @@
         let y = cy + radius * Math.cos(i * dtheta);
         nodes[i] = [x, y];
       }
-      // Draw edges
+      // drawEdges(ctx, nodes, 0);
       for (u = 0; u < n; u++) {
         for (v = u; v < n; v++) {
           if (Math.random() < p) {
@@ -54,9 +61,30 @@
         ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
         ctx.fill();
       }
-
     }
   }
+
+  function drawEdges(ctx, nodes, colors) {
+    // if (colors == 0) {
+    //   ctx.strokeStyle = 'rgb(0, 0, 0)';
+    // }
+    let n = nodes.length;
+    for (u = 0; u < n; u++) {
+      for (v = u; v < n; v++) {
+        if (Math.random() < p) {
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgb(0, 0, 0)';
+          ctx.moveTo(nodes[u][0], nodes[u][1]);
+          ctx.lineTo(nodes[v][0], nodes[v][1]);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  // function drawNodes(ctx) {
+
+  // }
 
   function id(idName) {
     return document.getElementById(idName);
