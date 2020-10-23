@@ -33,9 +33,10 @@
     <section>
       <p class="hidden">Color each node and its edges differently:</p>
       <div id="palette"></div>
-      <!-- <p>Once you've chosen colors, generate a graph!</p> -->
       <button id="go">Generate!</button>
-      <canvas id="graph">
+      <!-- defining width and height here improves the resolution of the canvas, and then css gets the
+      correct sizing for the page. -->
+      <canvas width="1080px" height="1080px" id="graph">
         <p>Graph canvas load failed!</p>
       </canvas>
     </section>
