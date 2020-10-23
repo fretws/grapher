@@ -8,8 +8,8 @@
  * the generator currently employed by Wolfram Alpha.
  */
 
-(function () {
-  "use-strict";
+"use-strict";
+(function() {
   window.addEventListener("load", init);
   const PALETTE = [
     [205, 0, 0], // red
@@ -116,14 +116,14 @@
    */
   function palettePopup() {
     let hidden = qs(".hidden");
-    if (hidden != null) {
+    if (hidden !== null) {
       hidden.classList.remove("hidden");
     }
-    let palette_elem = id("palette");
+    let paletteElem = id("palette");
     let n = parseInt(id("vertices").value);
-    let old_btns = palette_elem.childNodes;
-    while (old_btns.length > 0) {
-      palette_elem.removeChild(old_btns[0]);
+    let oldBtns = paletteElem.childNodes;
+    while (oldBtns.length > 0) {
+      paletteElem.removeChild(oldBtns[0]);
     }
     colors = new Array(n);
     for (let i = 0; i < n; i++) {
@@ -133,7 +133,7 @@
       colors[i] = PALETTE[indexOf("blue")];
       btn.textContent = i + 1;
       btn.type = "button";
-      palette_elem.appendChild(btn);
+      paletteElem.appendChild(btn);
     }
   }
 
@@ -155,7 +155,7 @@
   /**
    * Returns the index of the given color in the global palette.
    * @param {String} color name of color in the global palette.
-   * @returns {int} the index of the given color in the global palette.
+   * @return {int} the index of the given color in the global palette.
    */
   function indexOf(color) {
     for (let i = 0; i < PALETTE_NAMES.length; i++) {
@@ -168,7 +168,7 @@
   /**
    * Returns the element that has the ID attribute with the specified value.
    * @param {String} idName HTML element ID.
-   * @returns {DOM Object} DOM object associated with ID.
+   * @return {DOM Object} DOM object associated with ID.
    */
   function id(idName) {
     return document.getElementById(idName);
@@ -177,7 +177,7 @@
   /**
    * Returns the first element that fits the given selector.
    * @param {String} selector valid HTML/CSS selector.
-   * @returns {DOM Object} DOM object associated with ID.
+   * @return {DOM Object} DOM object associated with ID.
    */
   function qs(selector) {
     return document.querySelector(selector);
@@ -186,9 +186,10 @@
   /**
    * Returns a new DOM Object of the tag provided.
    * @param {String} tagName HTML tag name.
-   * @returns {DOM Object} DOM object associated with ID.
+   * @return {DOM Object} DOM object associated with ID.
    */
   function gen(tagName) {
     return document.createElement(tagName);
   }
+
 })();
