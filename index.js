@@ -83,6 +83,7 @@
             ((colors[u][0] + colors[v][0]) / 2) + ', ' +
             ((colors[u][1] + colors[v][1]) / 2) + ', ' +
             ((colors[u][2] + colors[v][2]) / 2) + ')';
+          ctx.lineWidth = 2;
           ctx.moveTo(nodes[u][0], nodes[u][1]);
           ctx.lineTo(nodes[v][0], nodes[v][1]);
           ctx.stroke();
@@ -105,7 +106,7 @@
         colors[coord][0] + ', ' +
         colors[coord][1] + ', ' +
         colors[coord][2] + ')';
-      ctx.arc(nodes[coord][0], nodes[coord][1], 5, 0, Math.PI * 2);
+      ctx.arc(nodes[coord][0], nodes[coord][1], 10, 0, Math.PI * 2);
       ctx.fill();
     }
   }
