@@ -130,8 +130,16 @@
     for (let i = 0; i < n; i++) {
       let btn = gen("button");
       btn.addEventListener("click", cycleColor);
-      btn.classList.add("blue");
-      colors[i] = PALETTE[indexOf("blue")];
+      if (i < n / 3) {
+        btn.classList.add("blue");
+        colors[i] = PALETTE[indexOf("blue")];
+      } else if (i < 2 * n / 3) {
+        btn.classList.add("red");
+        colors[i] = PALETTE[indexOf("red")];
+      } else {
+        btn.classList.add("green");
+        colors[i] = PALETTE[indexOf("green")];
+      }
       btn.textContent = i + 1;
       btn.type = "button";
       paletteElem.appendChild(btn);
