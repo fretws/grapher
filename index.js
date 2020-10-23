@@ -8,7 +8,7 @@
  * the generator currently employed by Wolfram Alpha.
  */
 
-"use-strict";
+"use strict";
 (function() {
   window.addEventListener("load", init);
   const PALETTE = [
@@ -168,7 +168,7 @@
   /**
    * Returns the element that has the ID attribute with the specified value.
    * @param {String} idName HTML element ID.
-   * @return {DOM Object} DOM object associated with ID.
+   * @return {Object} DOM object associated with ID.
    */
   function id(idName) {
     return document.getElementById(idName);
@@ -177,7 +177,7 @@
   /**
    * Returns the first element that fits the given selector.
    * @param {String} selector valid HTML/CSS selector.
-   * @return {DOM Object} DOM object associated with ID.
+   * @return {Object} first DOM object associated with the given selector.
    */
   function qs(selector) {
     return document.querySelector(selector);
@@ -186,7 +186,7 @@
   /**
    * Returns a new DOM Object of the tag provided.
    * @param {String} tagName HTML tag name.
-   * @return {DOM Object} DOM object associated with ID.
+   * @return {Object} new DOM object of the given HTML tag.
    */
   function gen(tagName) {
     return document.createElement(tagName);
